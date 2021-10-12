@@ -1,3 +1,4 @@
+using Animation;
 using Player.Interfaces;
 using UnityEngine;
 
@@ -18,14 +19,18 @@ namespace Player.States
         
         public void Enter()
         {
-            
+            _playerView.StartAnimation(Track.Idle, true);
         }
 
         public void Update(float deltaTime)
         {
-            if (_playerInput.IsMoving)
+            if (_playerInput.JumpPressed)
             {
-                _stateMachine.SetState(new Move(_stateMachine, _playerInput, _playerView));
+                _stateMachine.SetState(new Jump(_stateMachine, _playerInput, _playerView));
+            }
+            else if (_playerInput.IsMoving)
+            {
+                _stateMachine.SetState(new Run(_stateMachine, _playerInput, _playerView));
             }
         }
     }

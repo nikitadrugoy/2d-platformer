@@ -1,15 +1,16 @@
+using Animation;
 using Player.Interfaces;
 using UnityEngine;
 
 namespace Player.States
 {
-    public class Move : IState
+    public class Run : IState
     {
         private readonly IStateMachine _stateMachine;
         private readonly IPlayerInput _playerInput;
         private readonly PlayerView _playerView;
 
-        public Move(IStateMachine stateMachine, IPlayerInput playerInput, PlayerView playerView)
+        public Run(IStateMachine stateMachine, IPlayerInput playerInput, PlayerView playerView)
         {
             _stateMachine = stateMachine;
             _playerInput = playerInput;
@@ -18,20 +19,22 @@ namespace Player.States
         
         public void Enter()
         {
-            
+            _playerView.StartAnimation(Track.Run, true);
         }
 
         public void Update(float deltaTime)
         {
-            if (!_playerInput.IsMoving)
+            if (_playerInput.JumpPressed)
+            {
+                _stateMachine.SetState(new Jump(_stateMachine, _playerInput, _playerView));
+            }
+            else if (!_playerInput.IsMoving)
             {
                 _stateMachine.SetState(new Idle(_stateMachine, _playerInput, _playerView));
             }
             else
             {
-                float velocity = _playerInput.MovingVelocity * deltaTime * _playerView.Speed;
-                Debug.Log(Vector3.right * velocity);
-                _playerView.Position += Vector3.right * velocity;
+                _playerView.Move(_playerInput.MovingVelocity);
             }
         }
     }

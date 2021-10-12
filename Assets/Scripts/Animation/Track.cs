@@ -3,6 +3,7 @@ namespace Animation
     public enum Track
     {
         Idle,
-        Walk,
+        Run,
+        Jump,
     }
 }

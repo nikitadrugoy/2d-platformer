@@ -13,7 +13,10 @@ namespace Player
 
         private SpriteAnimator _spriteAnimator;
         private IStateMachine _stateMachine;
-        private PlayerController _playerController;
+        private IPlayerInput _playerInput;
+        
+        private float _groundLevel = 0f;
+        private float _yVelocity = 0f;
 
         public Vector3 Position
         {
@@ -22,24 +25,33 @@ namespace Player
         }
 
         public float Speed => _speed;
+        public float GroundLevel => _groundLevel;
 
         private void Awake()
         {
-            _playerController = new PlayerController(this);
-            
             LoadAnimations();
             InitStateMachine();
-        }
-
-        private void Start()
-        {
-            _spriteAnimator.StartAnimation(_spriteRenderer, Track.Idle, true, 10);
         }
 
         private void Update()
         {
             _stateMachine.Update(Time.deltaTime);
             _spriteAnimator.Update();
+        }
+
+        public void StartAnimation(Track track, bool loop)
+        {
+            _spriteAnimator.StartAnimation(_spriteRenderer, track, loop, 10);
+        }
+
+        public bool IsGrounded()
+        {
+            return Position.y <= _groundLevel + float.Epsilon && _yVelocity <= 0;
+        }
+
+        public void Move(float velocity)
+        {
+            transform.position += Vector3.right * velocity * Time.deltaTime * _speed;
         }
 
         private void LoadAnimations()
@@ -51,10 +63,9 @@ namespace Player
 
         private void InitStateMachine()
         {
-            var input = new PlayerInput();
-
+            _playerInput = new PlayerInput();
             _stateMachine = new StateMachine();
-            _stateMachine.SetState(new Idle(_stateMachine, input, this));
+            _stateMachine.SetState(new Idle(_stateMachine, _playerInput, this));
         }
     }
 }
