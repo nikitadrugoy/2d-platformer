@@ -1,17 +1,28 @@
-using Player.Interfaces;
+﻿using System;
 using UnityEngine;
 
 namespace Player
 {
-    public class PlayerInput : IPlayerInput
+    public class PlayerInput : MonoBehaviour
     {
-        private const string AxisX = "Horizontal";
+        [SerializeField] private PlayerMovement _movement;
         
-        public bool IsMoving => Mathf.Abs(Input.GetAxis(AxisX)) > _movingThreshold;
-        public float MovingVelocity => Input.GetAxis(AxisX);
-        
-        public bool JumpPressed => Input.GetKeyDown(KeyCode.Space);
+        private void Update()
+        {
+            var horizontal = 0f;// = Input.GetAxis("Horizontal");
+            float vertical = Input.GetAxis("Vertical");
 
-        private float _movingThreshold = 0.05f;
+            if (Input.GetKey(KeyCode.A))
+            {
+                horizontal -= 1f;
+            }
+            
+            if (Input.GetKey(KeyCode.D))
+            {
+                horizontal += 1f;
+            }
+
+            _movement.Move(new Vector3(horizontal, 0f));
+        }
     }
 }
