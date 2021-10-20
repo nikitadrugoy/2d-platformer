@@ -1,20 +1,27 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Player
 {
     public class PlayerMovement : MonoBehaviour
     {
         [SerializeField] private Rigidbody2D _rigidbody;
-        [SerializeField] private SurfaceSlider _surfaceSlider;
+        // [SerializeField] private SurfaceSlider _surfaceSlider;
         [SerializeField] private float _speed;
-        
+
+        private Vector2 _direction;
+
         public void Move(Vector2 direction)
         {
-            Vector2 directionAlongSurface = _surfaceSlider.Project(direction.normalized);
-            Vector2 offset = directionAlongSurface * (_speed * Time.deltaTime);
-            
-            Debug.Log(_speed * Time.deltaTime);
-            _rigidbody.MovePosition(_rigidbody.position + offset);
+            _direction = direction;
+        }
+
+        private void FixedUpdate()
+        {
+            _rigidbody.velocity = new Vector2(
+                Time.fixedDeltaTime * _speed * _direction.x,
+                _rigidbody.velocity.y
+            );
         }
     }
 }
