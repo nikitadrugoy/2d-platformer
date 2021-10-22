@@ -2,7 +2,6 @@ using System;
 using Controls;
 using Models;
 using UnityEngine;
-using ViewModels;
 using Views.Player;
 
 namespace Init
@@ -17,11 +16,10 @@ namespace Init
         {
             var playerModel = new PlayerModel();
             var input = new PlayerInput();
-            var playerViewModel = new PlayerViewModel(playerModel, _playerView.Rigidbody, input);
 
-            _playerView.Init(playerViewModel);
+            _playerView.Init(playerModel, input);
 
-            _initializer = new Initializer(playerViewModel);
+            _initializer = new Initializer(_playerView.ViewModel);
         }
 
         private void Update()

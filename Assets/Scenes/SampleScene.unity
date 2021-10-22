@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 350289134}
   - component: {fileID: 350289136}
   - component: {fileID: 350289135}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -350,8 +350,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f97c3eec3a544c13adbed1ce47cb0fc0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _animator: {fileID: 350289131}
-  _rigidbody: {fileID: 350289134}
+  _platformLayer:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!61 &350289136
 BoxCollider2D:
   m_ObjectHideFlags: 0
