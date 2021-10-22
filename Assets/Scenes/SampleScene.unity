@@ -224,7 +224,7 @@ GameObject:
   - component: {fileID: 350289132}
   - component: {fileID: 350289131}
   - component: {fileID: 350289134}
-  - component: {fileID: 350289138}
+  - component: {fileID: 350289136}
   - component: {fileID: 350289135}
   m_Layer: 0
   m_Name: Player
@@ -352,8 +352,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _animator: {fileID: 350289131}
   _rigidbody: {fileID: 350289134}
---- !u!58 &350289138
-CircleCollider2D:
+--- !u!61 &350289136
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -365,9 +365,19 @@ CircleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.09, y: 0.40625}
+  m_Offset: {x: 0.11494535, y: 0.40625}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 1.15625, y: 0.8125}
+    newSize: {x: 0.37, y: 0.26}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
   serializedVersion: 2
-  m_Radius: 0.42
+  m_Size: {x: 0.65049064, y: 0.8125}
+  m_EdgeRadius: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1251,7 +1261,7 @@ GameObject:
   - component: {fileID: 1477203706}
   - component: {fileID: 1477203705}
   - component: {fileID: 1477203707}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Platforms
   m_TagString: Untagged
   m_Icon: {fileID: 0}
